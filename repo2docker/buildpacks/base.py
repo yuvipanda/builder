@@ -659,9 +659,6 @@ class BuildPack:
             tag=image_spec,
             custom_context=True,
             buildargs=build_args,
-            decode=True,
-            forcerm=True,
-            rm=True,
             container_limits=limits,
             cache_from=cache_from,
         )
