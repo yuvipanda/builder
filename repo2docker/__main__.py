@@ -192,6 +192,8 @@ def get_argparser():
         "--cache-from", action="append", default=[], help=Repo2Docker.cache_from.help
     )
 
+    argparser.add_argument("--engine", help="Name of the container engine")
+
     return argparser
 
 
@@ -325,6 +327,9 @@ def make_r2d(argv=None):
 
     if args.cache_from:
         r2d.cache_from = args.cache_from
+
+    if args.engine:
+        r2d.engine = args.engine
 
     r2d.environment = args.environment
 
