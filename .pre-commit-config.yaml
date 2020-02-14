@@ -3,3 +3,5 @@ repos:
   rev: 18.9b0
   hooks:
   - id: black
+    # Doesn't work:
+    # args: [--target-version py35]
