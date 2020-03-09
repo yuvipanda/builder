@@ -98,7 +98,7 @@ class CondaBuildPack(BaseImage):
             (
                 "${NB_USER}",
                 r"""
-                npm config --global set prefix ${NPM_DIR}
+                ${NB_PYTHON_PREFIX}/bin/npm config --global set prefix ${NPM_DIR}
                 """,
             ),
         ]
