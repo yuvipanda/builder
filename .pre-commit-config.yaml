@@ -1,7 +1,6 @@
 repos:
 - repo: https://github.com/ambv/black
-  rev: 18.9b0
+  rev: 19.10b0
   hooks:
   - id: black
-    # Doesn't work:
-    # args: [--target-version py35]
+    args: [--target-version=py35]
