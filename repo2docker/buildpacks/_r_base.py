@@ -17,7 +17,7 @@ SHINY_CHECKSUM = "9aeef6613e7f58f21c97a4600921340e"
 DEVTOOLS_VERSION = "2018-02-01"
 
 # IRKernel version - specified as a tag in the IRKernel repository
-IRKERNEL_VERSION = "1.0.2"
+IRKERNEL_VERSION = "1.1"
 
 
 def rstudio_base_scripts():
@@ -55,8 +55,9 @@ def rstudio_base_scripts():
             "${NB_USER}",
             # Install nbrsessionproxy
             r"""
-                pip install --no-cache-dir https://github.com/jupyterhub/jupyter-server-proxy/archive/7ac0125.zip && \
-                pip install --no-cache-dir jupyter-rsession-proxy==1.0b6 && \
+                pip install --no-cache-dir jupyter-server-proxy==1.4.0 && \
+                pip install --no-cache-dir https://github.com/jupyterhub/jupyter-rsession-proxy/archive/d5efed5455870556fc414f30871d0feca675a4b4.zip && \
+                pip install --no-cache-dir https://github.com/ryanlovett/jupyter-shiny-proxy/archive/47557dc47e2aeeab490eb5f3eeae414cdde4a6a9.zip && \
                 jupyter serverextension enable jupyter_server_proxy --sys-prefix && \
                 jupyter nbextension install --py jupyter_server_proxy --sys-prefix && \
                 jupyter nbextension enable --py jupyter_server_proxy --sys-prefix
