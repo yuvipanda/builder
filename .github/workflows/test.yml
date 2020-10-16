@@ -73,6 +73,7 @@ jobs:
           - julia
           - nix
           - pipfile
+          - poetry
           - r
           - stencila-py
           - unit
