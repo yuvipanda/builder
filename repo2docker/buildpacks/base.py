@@ -121,6 +121,7 @@ RUN if [ ! -d "${REPO_DIR}" ] \
     ; fi
 
 WORKDIR ${REPO_DIR}
+RUN chown ${NB_USER}:${NB_USER} ${REPO_DIR}
 
 # We want to allow two things:
 #   1. If there's a .local/bin directory in the repo, things there

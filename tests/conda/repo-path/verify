@@ -14,6 +14,9 @@ assert sys.executable.startswith("/srv/conda/"), sys.executable
 assert os.path.exists("/srv/repo/verify")
 assert os.path.abspath(__file__) == "/srv/repo/verify"
 
+# Repo should be writable
+assert os.access("/srv/repo", os.W_OK)
+
 # All files in repo dir should be readable and writeable
 for path in glob("/src/repo/**/*", recursive=True):
     assert os.access(path, os.R_OK)
