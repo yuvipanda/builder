@@ -185,7 +185,7 @@ COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
 ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
 
 # Specify the default command to run
-CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
+CMD {{ command }}
 
 {% if appendix -%}
 # Appendix:
@@ -479,6 +479,14 @@ class BuildPack:
         """
         return None
 
+    def get_command(self):
+        """
+        The default command to be run by docker.
+
+        This should return a list of strings to be used as Dockerfile `CMD`.
+        """
+        return ["jupyter", "notebook", "--ip", "0.0.0.0"]
+
     @property
     def binder_dir(self):
         has_binder = os.path.isdir("binder")
@@ -553,6 +561,19 @@ class BuildPack:
             for k, v in self.get_build_script_files().items()
         }
 
+        # If get_command returns a list or a tuple, it will be stringified (exec form).
+        # If it returns a string, it will be used as is (shell form).
+        cmd = self.get_command()
+        if isinstance(cmd, tuple):
+            cmd = list(cmd)
+        if isinstance(cmd, list):
+            cmd = str(cmd).replace("'", '"')
+        if not isinstance(cmd, str):
+            raise ValueError(
+                'Method "get_command" of buildpack "%s" must return a string, a list or a tuple.'
+                % self.__class__.__name__
+            )
+
         return t.render(
             packages=sorted(self.get_packages()),
             path=self.get_path(),
@@ -567,6 +588,7 @@ class BuildPack:
             base_packages=sorted(self.get_base_packages()),
             post_build_scripts=self.get_post_build_scripts(),
             start_script=self.get_start_script(),
+            command=cmd,
             appendix=self.appendix,
             # For docker 17.09 `COPY --chown`, 19.03 would allow using $NBUSER
             user=build_args.get("NB_UID", DEFAULT_NB_UID),
