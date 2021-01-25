@@ -56,6 +56,7 @@ setup(
         "ruamel.yaml>=0.15",
         "toml",
         "semver",
+        "poetry-core",
     ],
     python_requires=">=3.6",
     author="Project Jupyter Contributors",
