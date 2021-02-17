@@ -51,6 +51,7 @@ setup(
         "traitlets",
         "python-json-logger",
         "escapism",
+        "iso8601",
         "jinja2",
         "requests",
         "ruamel.yaml>=0.15",

@@ -15,12 +15,13 @@ import getpass
 import shutil
 import tempfile
 import time
+from urllib.parse import urlparse
 
 import docker
-from urllib.parse import urlparse
+import escapism
 from docker.utils import kwargs_from_env
 from docker.errors import DockerException
-import escapism
+from iso8601 import parse_date
 from pythonjsonlogger import jsonlogger
 
 from traitlets import Any, Dict, Int, List, Unicode, Bool, default
@@ -602,9 +603,12 @@ class Repo2Docker(Application):
         Displaying logs while it's running
         """
 
+        last_timestamp = None
         try:
-            for line in container.logs(stream=True):
-                self.log.info(line.decode("utf-8"), extra=dict(phase="running"))
+            for line in container.logs(stream=True, timestamps=True):
+                line = line.decode("utf-8")
+                last_timestamp, line = line.split(" ", maxsplit=1)
+                self.log.info(line, extra=dict(phase="running"))
 
         finally:
             container.reload()
@@ -619,9 +623,16 @@ class Repo2Docker(Application):
                 "Container finished running.\n".upper(), extra=dict(phase="running")
             )
             # are there more logs? Let's send them back too
-            late_logs = container.logs().decode("utf-8")
+            if last_timestamp:
+                # docker only accepts integer timestamps
+                # this means we will usually replay logs from the last second
+                # of the container
+                # we should check if this ever returns anything new,
+                # since we know it ~always returns something redundant
+                last_timestamp = int(parse_date(last_timestamp).timestamp())
+            late_logs = container.logs(since=last_timestamp).decode("utf-8")
             for line in late_logs.split("\n"):
-                self.log.info(line + "\n", extra=dict(phase="running"))
+                self.log.debug(line + "\n", extra=dict(phase="running"))
 
             container.remove()
             if exit_code:
