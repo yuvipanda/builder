@@ -8,8 +8,7 @@ class NixBuildPack(BaseImage):
     """A nix Package Manager BuildPack"""
 
     def get_path(self):
-        """Return paths to be added to PATH environemnt variable
-        """
+        """Return paths to be added to PATH environemnt variable"""
         return super().get_path() + ["/home/${NB_USER}/.nix-profile/bin"]
 
     def get_env(self):
@@ -24,17 +23,22 @@ class NixBuildPack(BaseImage):
         """
         Return series of build-steps common to all nix repositories.
         Notice how only root privileges are needed for creating nix
-        directory.
+        directory and a nix.conf file.
 
          - create nix directory for user nix installation
+         - disable sandboxing because its unsupported inside a Docker container
          - install nix package manager for user
+
         """
         return super().get_build_scripts() + [
             (
                 "root",
                 """
             mkdir -m 0755 /nix && \
-            chown -R ${NB_USER}:${NB_USER} /nix /usr/local/bin/nix-shell-wrapper /home/${NB_USER}
+            chown -R ${NB_USER}:${NB_USER} /nix /usr/local/bin/nix-shell-wrapper /home/${NB_USER} && \
+            mkdir -p /etc/nix && \
+            touch /etc/nix/nix.conf && \
+            echo "sandbox = false" >> /etc/nix/nix.conf
             """,
             ),
             (
@@ -47,16 +51,14 @@ class NixBuildPack(BaseImage):
         ]
 
     def get_build_script_files(self):
-        """Dict of files to be copied to the container image for use in building
-        """
+        """Dict of files to be copied to the container image for use in building"""
         return {
             "nix/install-nix.bash": "/home/${NB_USER}/.local/bin/install-nix.bash",
             "nix/nix-shell-wrapper": "/usr/local/bin/nix-shell-wrapper",
         }
 
     def get_assemble_scripts(self):
-        """Return series of build-steps specific to this source repository.
-        """
+        """Return series of build-steps specific to this source repository."""
         return super().get_assemble_scripts() + [
             (
                 "${NB_USER}",

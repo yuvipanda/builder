@@ -3,7 +3,7 @@
 Installing ``repo2docker``
 ==========================
 
-repo2docker requires Python 3.5 and above on Linux and macOS. See
+repo2docker requires Python 3.6 or above on Linux and macOS. See
 :ref:`below <windows>` for more information about Windows support.
 
 Prerequisite: Docker
@@ -22,6 +22,23 @@ The `BinderHub <https://binderhub.readthedocs.io/>`_ helm chart uses version
 `helm chart <https://github.com/jupyterhub/binderhub/blob/master/helm-chart/binderhub/values.yaml#L167>`_
 for more details.
 
+Optional: Mercurial
+-------------------
+
+For `Mercurial <https://www.mercurial-scm.org>`_ repositories, Mercurial and
+`hg-evolve <https://www.mercurial-scm.org/doc/evolution/>`_ need to be
+installed. For example, on Debian based distributions, one can do::
+
+  sudo apt install mercurial
+  $(hg debuginstall --template "{pythonexe}") -m pip install hg-evolve --user
+
+To install Mercurial on other systems, see `here
+<https://www.mercurial-scm.org/download>`_.
+
+Note that for old Mercurial versions, you may need to specify a version for
+hg-evolve. For example, ``hg-evolve==9.2`` for hg 4.5 (which is installed with
+`apt` on Ubuntu 18.4).
+
 Installing with ``pip``
 -----------------------
 
@@ -31,7 +48,7 @@ We recommend installing ``repo2docker`` with the ``pip`` tool::
 
 for the latest release. To install the most recent code from the upstream repository, run::
 
-    python3 -m pip install https://github.com/jupyter/repo2docker/archive/master.zip
+    python3 -m pip install https://github.com/jupyterhub/repo2docker/archive/master.zip
 
 For information on using ``repo2docker``, see :ref:`usage`.
 
@@ -41,7 +58,7 @@ Installing from source code
 Alternatively, you can install repo2docker from a local source tree,
 e.g. in case you are contributing back to this project::
 
-  git clone https://github.com/jupyter/repo2docker.git
+  git clone https://github.com/jupyterhub/repo2docker.git
   cd repo2docker
   python3 -m pip install -e .
 

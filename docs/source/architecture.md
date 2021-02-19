@@ -44,10 +44,9 @@ It takes the following steps to determine this:
    repository' by returning `True`. Usually buildpacks look for presence of specific files
    (`requirements.txt`, `environment.yml`, `install.R`, `manifest.xml` etc) to determine if they can handle a
    repository or not. Buildpacks may also look into specific files to determine specifics of the
-   required environment, such as the Stencila integration which extracts the required language-specific
-   executions contexts from an XML file (see base `BuildPack`). More than one buildpack may use such
-   information, as properties can be inherited (e.g. the R buildpack uses the list of required Stencila
-   contexts to see if R must be installed).
+   required environment.
+   More than one buildpack may use such information,
+   as properties can be inherited.
 3. If no `BuildPack` returns true, then repo2docker will use the default `BuildPack` (defined in
    `Repo2Docker.default_buildpack` traitlet).
 
@@ -126,7 +125,7 @@ commands:
   should return any value other than `None` if the path matches what the ContentProvider is looking
   for.
 
-  > For example, the [`Local` ContentProvider](https://github.com/jupyter/repo2docker/blob/80b979f8580ddef184d2ba7d354e7a833cfa38a4/repo2docker/contentproviders/base.py#L64)
+  > For example, the [`Local` ContentProvider](https://github.com/jupyterhub/repo2docker/blob/80b979f8580ddef184d2ba7d354e7a833cfa38a4/repo2docker/contentproviders/base.py#L64)
   > checks whether the argument is a valid local path. If so, then `detect(`
   > returns a dictionary: `{'path': source}` which defines the path to the repository.
   > This path is used by `fetch()` to check that it matches the output directory.
@@ -135,7 +134,7 @@ commands:
   result in the contents of the repository being placed locally to a folder.
 
 For more information on ContentProviders, take a look at
-[the ContentProvider base class](https://github.com/jupyter/repo2docker/blob/80b979f8580ddef184d2ba7d354e7a833cfa38a4/repo2docker/contentproviders/base.py#L16-L60)
+[the ContentProvider base class](https://github.com/jupyterhub/repo2docker/blob/80b979f8580ddef184d2ba7d354e7a833cfa38a4/repo2docker/contentproviders/base.py#L16-L60)
 which has more explanation.
 
 

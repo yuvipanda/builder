@@ -29,7 +29,7 @@ can be found on this page (and to the right).
 that lets you install any kind of package,
 including Python, R, and C/C++ packages.
 ``repo2docker`` does not use your ``environment.yml`` to create and activate a new conda environment.
-Rather, it updates a base conda environment `defined here <https://github.com/jupyter/repo2docker/blob/master/repo2docker/buildpacks/conda/environment.yml>`_ with the packages listed in your ``environment.yml``.
+Rather, it updates a base conda environment `defined here <https://github.com/jupyterhub/repo2docker/blob/master/repo2docker/buildpacks/conda/environment.yml>`_ with the packages listed in your ``environment.yml``.
 This means that the environment will always have the same default name, not the name
 specified in your ``environment.yml``.
 
@@ -147,25 +147,6 @@ from the ``DESCRIPTION`` by running ``devtools::install_git(".")``.
 You also need to have a ``runtime.txt`` file that is formatted as
 ``r-<YYYY>-<MM>-<DD>``, where YYYY-MM-DD is a snapshot of MRAN that will be
 used for your R installation.
-
-
-.. _manifest.xml:
-
-``manifest.xml`` - Install Stencila
-===================================
-
-`Stencila <https://stenci.la/>`_ is an open source office suite for reproducible research.
-It is powered by the open file format `Dar <https://github.com/substance/dar>`_.
-
-If your repository contains a Stencila document, repo2docker detects it based on the file ``manifest.xml``.
-The required `execution contexts <https://stenci.la/learn/intro.html>`_ are extracted from a Dar article (i.e.
-files named ``*.jats.xml``).
-
-You may also have a ``runtime.txt`` and/or an ``install.R`` to manually configure your R installation.
-
-To see example repositories, visit our
-`Stencila with R <https://github.com/binder-examples/stencila-r/>`_ and
-`Stencila with Python <https://github.com/binder-examples/stencila-py>`_ examples.
 
 
 .. _postBuild:

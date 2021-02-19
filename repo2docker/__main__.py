@@ -39,7 +39,7 @@ def validate_image_name(image_name):
     return image_name
 
 
-# See https://github.com/jupyter/repo2docker/issues/871 for reason
+# See https://github.com/jupyterhub/repo2docker/issues/871 for reason
 class MimicDockerEnvHandling(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         # There are 3 cases:
@@ -96,7 +96,8 @@ def get_argparser():
     argparser.add_argument(
         "--ref",
         help=(
-            "If building a git url, which reference to check out. " "E.g., `master`."
+            "Reference to build instead of default reference. For example"
+            " branch name or commit for a Git repository."
         ),
     )
 

@@ -1,8 +1,8 @@
-# <a href="https://github.com/jupyter/repo2docker"><img src="https://raw.githubusercontent.com/jupyter/repo2docker/3fa7444fca6ae2b51e590cbc9d83baf92738ca2a/docs/source/_static/images/repo2docker.png" height="48px" /> repo2docker</a>
+# <a href="https://github.com/jupyterhub/repo2docker"><img src="https://raw.githubusercontent.com/jupyterhub/repo2docker/3fa7444fca6ae2b51e590cbc9d83baf92738ca2a/docs/source/_static/images/repo2docker.png" height="48px" /> repo2docker</a>
 
-[![Build Status](https://travis-ci.org/jupyter/repo2docker.svg?branch=master)](https://travis-ci.org/jupyter/repo2docker)
+[![Deploy Status](https://travis-ci.org/jupyterhub/repo2docker.svg?branch=master)](https://travis-ci.org/jupyterhub/repo2docker)
+[![Build Status](https://github.com/jupyterhub/repo2docker/workflows/Continuous%20Integration/badge.svg)](https://github.com/jupyterhub/repo2docker/actions)
 [![Documentation Status](https://readthedocs.org/projects/repo2docker/badge/?version=latest)](http://repo2docker.readthedocs.io/en/latest/?badge=latest)
-[![Build Status](https://dev.azure.com/jupyter/repo2docker/_apis/build/status/jupyter.repo2docker?branchName=master)](https://dev.azure.com/jupyter/repo2docker/_build/latest?definitionId=1&branchName=master)
 [![Contribute](https://img.shields.io/badge/I_want_to_contribute!-grey?logo=jupyter)](https://repo2docker.readthedocs.io/en/latest/contributing/contributing.html)
 
 `repo2docker` fetches a git repository and builds a container image based on
@@ -16,15 +16,13 @@ For support questions please search or post to https://discourse.jupyter.org/c/b
 See the [contributing guide](CONTRIBUTING.md) for information on contributing to
 repo2docker.
 
-See [our roadmap](https://repo2docker.readthedocs.io/en/latest/contributing/roadmap.html)
-to learn about where the project is heading.
 
 ## Using repo2docker
 ### Prerequisites
 
 1. Docker to build & run the repositories. The [community edition](https://store.docker.com/search?type=edition&offering=community)
    is recommended.
-2. Python 3.5+.
+2. Python 3.6+.
 
 Supported on Linux and macOS. [See documentation note about Windows support.](http://repo2docker.readthedocs.io/en/latest/install.html#note-about-windows-support)
 
@@ -41,7 +39,7 @@ pip install jupyter-repo2docker
 To install from source:
 
 ```bash
-git clone https://github.com/jupyter/repo2docker.git
+git clone https://github.com/jupyterhub/repo2docker.git
 cd repo2docker
 pip install -e .
 ```
