@@ -56,7 +56,7 @@ setup(
         "ruamel.yaml>=0.15",
         "toml",
         "semver",
-        "requests",
+        "entrypoints",
     ],
     python_requires=">=3.6",
     author="Project Jupyter Contributors",
@@ -90,6 +90,7 @@ setup(
         "console_scripts": [
             "jupyter-repo2docker = repo2docker.__main__:main",
             "repo2docker = repo2docker.__main__:main",
-        ]
+        ],
+        "repo2docker.engines": ["docker = repo2docker.docker:DockerEngine"],
     },
 )
