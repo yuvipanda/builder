@@ -49,6 +49,7 @@ setup(
     install_requires=[
         "docker",
         "escapism",
+        "iso8601",
         "jinja2",
         "python-json-logger",
         "requests",
