@@ -63,7 +63,7 @@ class CondaBuildPack(BaseImage):
 
         All scripts here should be independent of contents of the repository.
 
-        This sets up through `install-miniforge.bash` (found in this directory):
+        This sets up through `install-micromamba.bash` (found in this directory):
 
         - a directory for the conda environment and its ownership by the
           notebook user
@@ -80,8 +80,8 @@ class CondaBuildPack(BaseImage):
                 "root",
                 r"""
                 TIMEFORMAT='time: %3R' \
-                bash -c 'time /tmp/install-miniforge.bash' && \
-                rm /tmp/install-miniforge.bash /tmp/environment.yml
+                bash -c 'time /tmp/install-micromamba.bash' && \
+                rm /tmp/install-micromamba.bash /tmp/environment.yml
                 """,
             )
         ]
@@ -104,7 +104,7 @@ class CondaBuildPack(BaseImage):
 
         """
         files = {
-            "conda/install-miniforge.bash": "/tmp/install-miniforge.bash",
+            "conda/install-micromamba.bash": "/tmp/install-micromamba.bash",
             "conda/activate-conda.sh": "/etc/profile.d/activate-conda.sh",
         }
         py_version = self.python_version
@@ -277,9 +277,9 @@ class CondaBuildPack(BaseImage):
                     "${NB_USER}",
                     r"""
                 TIMEFORMAT='time: %3R' \
-                bash -c 'time mamba env update -p {0} -f "{1}" && \
-                time mamba clean --all -f -y && \
-                mamba list -p {0} \
+                bash -c 'time /tmp/bin/micromamba install -p {0} -f "{1}" -c conda-forge && \
+                # time /tmp/bin/micromamba clean --all -y && \
+                /tmp/bin/micromamba list -p {0} \
                 '
                 """.format(
                         env_prefix, environment_yml
@@ -296,9 +296,9 @@ class CondaBuildPack(BaseImage):
                 (
                     "${NB_USER}",
                     r"""
-                mamba install -p {0} r-base{1} r-irkernel={2} r-devtools -y && \
-                mamba clean --all -f -y && \
-                mamba list -p {0}
+                /tmp/bin/micromamba install -p {0} r-base{1} r-irkernel={2} r-devtools -y -c conda-forge && \
+                #  /tmp/bin/micromamba clean --all -f -y && \
+                /tmp/bin/micromamba list -p {0}
                 """.format(
                         env_prefix, r_pin, IRKERNEL_VERSION
                     ),
